@@ -1,0 +1,23 @@
+# Class UI
+
+## Class Job
+
+* place to execute commands
+* recieve feed back from executer
+
+Class structure:
+
+UI:
+* Public
+  - Attributes
+    * str input_stream
+    * str output_stream
+
+    * obj executer(Executor)
+  
+  - Methods
+    * get_output_stream(Executer) -> str
+
+* Private
+  - NONE
+

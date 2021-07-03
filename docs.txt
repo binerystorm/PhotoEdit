@@ -1,0 +1,62 @@
+# Basic photo editing(more specifecly for making vage photos clear)
+
+NOTE: Must be expandable
+
+## Frame work
+
+{-------------------------------------------------------------------------------
+# Spesifications
+
+* Opens a window of just the picture where we can see changes.
+* All controll will be done via the terminal via commands. 
+* Nothing done to the photo unless specified(In which case it will be saved as a new file)
+* Will be mainly used for data gathering such as how how many pXp
+* Need a system for aguement parsing(own "abstract class")
+
+## What must it do
+
+~DEFINATE~:
+
+* return zoomed in image(given a starting (x, y) & ending (x, y))
+* of set colors in image
+* color fading(from a low res image make higher res by trying to fade the colors)
+* try to form strong outline from faded colors
+* set the image to negative
+* make ascii image(FOR FUN)
+
+
+~VAGE~:
+
+* try make clear photo from pixely
+
+-------------------------------------------------------------------------------}
+
+## Class hierarchy
+
+{-------------------------------------------------------------------------------
+
+# Classes:
+
+* UI
+* ArgParse(inherits Parser)
+* Executer
+* Storage
+* Viewer
+
+# Hierarchy
+
+Executer
+|
+|-> UI
+|   `-> ArgParse
+|       |
+|<------'
+|
+|<-> {Storage}
+|
+`-> Viewer
+
+# Each classes structure
+
+{-------------------------------------------------------------------------------
+

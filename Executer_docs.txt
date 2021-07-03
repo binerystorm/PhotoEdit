@@ -1,0 +1,31 @@
+# Class Executer
+
+## Class Job
+
+* tell the viewer what to show
+* tell Storage to store previous states of image
+* give feed back to UI
+
+## Class structure:
+
+Executer:
+* Public
+  - Attributes
+    * obj parser(ArgParse)
+
+  - Methods
+    * get_output_stream() -> str
+
+* Private
+  - Attributes
+    * obj box(Storage)
+    * obj view(Viewer)
+
+  - Methods
+    * open_file(file_path: str) -> tuple
+    * create_sub_img(img: tuple, sub_img: list) -> None 
+    * offset_color(img: tuple, color_offset: list) -> None
+    * update_img(img: tuple)
+    * undo() -> None
+
+    * view_img(tuple) -> None

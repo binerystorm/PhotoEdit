@@ -1,0 +1,18 @@
+# Class Starage
+
+## Class Jobs
+
+* Store previous states of image
+* give previous states of image to Executer
+
+## Class Structure:
+
+Storage:
+* Public
+  - Attributes
+    * tuple current_state
+  - Methods
+    * get_current_state() -> tuple
+
+* Private
+  NONE

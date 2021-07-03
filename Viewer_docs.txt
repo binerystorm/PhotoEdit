@@ -1,0 +1,23 @@
+# Viewer Class
+
+## Class Job
+
+* open an image viewer
+* parse and under stand tuple format from Storage
+* parse and under stand colors
+
+Class Structure
+
+Viewer:
+* Public
+  - Attributes
+  NONE
+  - Methods
+    * view(tuple data) -> void
+
+* Private
+  - Attributes
+  NONE
+  - Methods
+    * parse_tuple_format() -> void
+    * parse_color() -> void

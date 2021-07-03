@@ -1,0 +1,39 @@
+# Class ArgParse
+
+# Class Jobs
+
+* format UI's input_stream to instructions (in the form of an ASTNode)
+* give instructions to Executer
+
+## Class Structure:
+
+ArgParse:
+* Public
+  - Attributes
+    * argument
+    * Executer exe
+  - Methods
+    * parse -> void
+
+* Private
+  - Attributes
+    * Lexer lex
+    * list tokan_stream
+    * (* int index *) 
+  - Methods
+    * parse_expretion() -> ASTNode
+    * parse_func() -> ASTNode
+    * parse_key() -> FlagNode | ArgNode
+    * parse_flag() -> FlagNode
+    * parse_arg() -> ArgNode
+
+* SubClasses:
+  - Tokan
+  - enum Tokans
+  - Lexer
+  - Node
+  - ASTNode
+  - FlagNode
+  - ArgNode
+
+
