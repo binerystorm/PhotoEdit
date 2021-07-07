@@ -7,6 +7,8 @@
 
 Class structure:
 
+Slave of Executer.
+
 UI:
 * Public
   - Attributes
@@ -17,7 +19,10 @@ UI:
   
   - Methods
     * get_output_stream(Executer) -> str
+    * run() -> void
 
 * Private
-  - NONE
+  - Attributes
+    * ArgParser parser
+
 

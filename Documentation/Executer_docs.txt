@@ -8,6 +8,8 @@
 
 ## Class structure:
 
+Master.
+
 Executer:
 * Public
   - Attributes

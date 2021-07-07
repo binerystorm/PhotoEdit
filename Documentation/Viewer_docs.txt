@@ -8,6 +8,8 @@
 
 Class Structure
 
+Slave of Executer
+
 Viewer:
 * Public
   - Attributes
