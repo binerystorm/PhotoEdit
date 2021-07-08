@@ -13,9 +13,8 @@ ArgParse:
 * Public
   - Attributes
     * argument
-    * Executer exe
   - Methods
-    * parse -> void
+    * parse(arg) -> void
 
 * Private
   - Attributes
@@ -37,5 +36,6 @@ ArgParse:
   - ASTNode
   - FlagNode
   - ArgNode
+  - CmdNode
 
 
