@@ -14,5 +14,5 @@ class UI:
     input_stream = input("> ")
 
     print(self.output_stream)
-    return self._parser(input_stream)
+    return self._parser.parse(input_stream)
 
