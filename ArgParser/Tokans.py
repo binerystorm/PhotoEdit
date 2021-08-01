@@ -14,3 +14,6 @@ class Tokan:
 
   def __str__(self):
     return "Type: {}, Value: {}".format(self.TYPE, self.VAL)
+
+  def __repr__(self):
+    return "Type: {}, Value: {}".format(self.TYPE, self.VAL)

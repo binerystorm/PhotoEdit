@@ -20,8 +20,8 @@ ArgParse:
   - Attributes
     * Lexer lex
     * list tokan_stream
-    * (* int index *) 
   - Methods
+    * next_tok() -> Tokan
     * parse_expretion() -> ASTNode
     * parse_func() -> ASTNode
     * parse_key() -> FlagNode | ArgNode
