@@ -20,7 +20,8 @@ class Lexer:
     self.char_stream = cs
     self.tokan_stream = []
 
-    print(self.char_stream.split())
+    # debugger
+    # print(self.char_stream.split())
 
     for sub_string in self.char_stream.split():
       self.tokan_stream.append(self._gen_tokan(sub_string))

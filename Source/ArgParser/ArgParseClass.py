@@ -10,8 +10,9 @@ class ArgParser:
     # Private vars
     self.lex = Lexer()
     self.tokan_stream = None
-    self.FUNCS = {"open": ("-f", "-o")}
-    self.FLAGS = {"-f": (str),
+    self.current_tok = None
+    self.FLAGS = {"open": ("-f", "-o")}
+    self.ARGS = {"-f": (str),
                   "-o": (int, None)}
 
   # Public methods
@@ -24,13 +25,24 @@ class ArgParser:
   # Private methods
   def _popt(self):
     try:
-      ret = next(self.tokan_stream)
+      tok = next(self.tokan_stream)
     except StopIteration:
-      ret = Tokan(Tokans.EOF, None)
-    return ret
+      tok = Tokan(Tokans.EOF, None)
+
+    self.current_tok = tok
 
   def _parse_exp(self):
-    func = self._popt()
+    # vars def
+    self._popt()
+    func = self.current_tok
+
+    # logic
+    if func.VAL not in self.FLAGS.keys():
+      try:
+        raise Exception("unknown function")
+      except Exception as e:
+        return "Exception: {}".format(e)
+
     if func.TYPE == Tokans.FUNC:
       return self._parse_func(func)
     else:
@@ -39,47 +51,64 @@ class ArgParser:
   def _parse_func(self, func):
     # var def
     flag_list = []
-    next_tok = self._popt()
+    self._popt()
 
     # logic
-    while next_tok.TYPE == Tokans.FLAG:
-      print("test: ", next_tok.VAL)
-      if next_tok.VAL in self.FUNCS[func.VAL]:
-        flag_list.append(self._parse_flag(next_tok))
+    while self.current_tok.TYPE == Tokans.FLAG:
+
+      if self.current_tok.VAL in self.FLAGS[func.VAL]:
+        flag = self.current_tok
+        flag_list.append(self._parse_flag(flag))
+
       else:
         raise Exception("Flag not compatible with func")
-      
-      if next_tokan.TYPE == Tokans.FLAG:
-        continue
-      else:
-        next_tok = self._popt()
+    # end while
 
-    if next_tok.TYPE == Tokans.EOF:
-      return CmdNode(func, flag_list)
-    else:
+    if self.current_tok.TYPE == Tokans.EOF:
+      if flag_list == []:
+        return CmdNode(func, [None])
+
+      else:
+        return CmdNode(func, flag_list)
+
+    else: 
       raise Exception("expected flag after functions")
 
   def _parse_flag(self, flag):
+    # var def
     arg_list = []
-    next_tok = self._popt()
+    self._popt()
 
-    while next_tok.TYPE in (Tokans.NUM, Tokans.STR):
-      if type(next_tok.VAL) in self.FLAGS[flag]:
-        arg_list.append(ArgNode(next_tok))
+    # logic
+    while self.current_tok.TYPE in (Tokans.NUM, Tokans.STR):
+      if type(self.current_tok.VAL) == self.ARGS[flag.VAL]:
+        arg_list.append(ArgNode(self.current_tok))
       else:
         raise Exception("incorrect type for flag")
-      next_tok = self._popt()
+      self._popt()
+      
 
-    if next_tok.TYPE in (Tokans.EOF, Tokans.FLAG):
-      return FlagNode(flag, arg_list)
+    if arg_list == []:
+      return FlagNode(flag, [None])
     else:
-      raise Exception("expected flag or arg got {}".format(next_tok.TYPE))
+      return FlagNode(flag, arg_list)
+
+# end class
 
 
 if __name__ == "__main__":
-  arg = ""
+  arg = "open -f \"hallo\"" # test an expretion
+  arg2 = "open -o" # test another valid expretion
+  arg3 = "open -f \"hallo\" -o" # test an expretion with more than one flag
+  arg4 = "open -o -f \"hallo\"" # test an expretion with more than one flag in another order
+  arg5 = "open" # test expretion with no flags
+  arg6 = "bla" # test expretion with invalid funtion
   p = ArgParser()
-  while arg != "quit":
-    arg = input("> ")
-    print(p.parse(arg))
+  print(p.parse(arg))
+  print(p.parse(arg2))
+  print(p.parse(arg3))
+  print(p.parse(arg4))
+  print(p.parse(arg5))
+  print(p.parse(arg6))
+
 
