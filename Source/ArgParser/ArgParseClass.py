@@ -1,6 +1,14 @@
-from Tokans import Tokans, Tokan
-from LexerClass import Lexer
-from Nodes import FlagNode, ArgNode, CmdNode
+# imports
+
+#TODO: make a testing git branch where I can test all modules sepratly
+if __name__ == "__main__":
+  from TokanClass import Tokans, Tokan
+  from LexerClass import Lexer
+  from Nodes import FlagNode, ArgNode, CmdNode
+else:
+  from .TokanClass import Tokans, Tokan
+  from .LexerClass import Lexer
+  from .Nodes import FlagNode, ArgNode, CmdNode
 
 class ArgParser:
   def __init__(self):
@@ -11,9 +19,12 @@ class ArgParser:
     self.lex = Lexer()
     self.tokan_stream = None
     self.current_tok = None
-    self.FLAGS = {"open": ("-f", "-o")}
-    self.ARGS = {"-f": (str),
-                  "-o": (int, None)}
+    self.FLAGS = {
+            "open": ("-f", "-o"),
+            "echo": ("-v",)}
+    self.ARGS = {"-f": (str,),
+                  "-o": (int, None),
+                  "-v": (str, None)}
 
   # Public methods
   def parse(self, arg):
@@ -81,7 +92,7 @@ class ArgParser:
 
     # logic
     while self.current_tok.TYPE in (Tokans.NUM, Tokans.STR):
-      if type(self.current_tok.VAL) == self.ARGS[flag.VAL]:
+      if type(self.current_tok.VAL) in self.ARGS[flag.VAL]:
         arg_list.append(ArgNode(self.current_tok))
       else:
         raise Exception("incorrect type for flag")
@@ -102,7 +113,8 @@ if __name__ == "__main__":
   arg3 = "open -f \"hallo\" -o" # test an expretion with more than one flag
   arg4 = "open -o -f \"hallo\"" # test an expretion with more than one flag in another order
   arg5 = "open" # test expretion with no flags
-  arg6 = "bla" # test expretion with invalid funtion
+  arg6 = "echo -v"
+  arg7 = "bla" # test expretion with invalid funtion
   p = ArgParser()
   print(p.parse(arg))
   print(p.parse(arg2))
@@ -110,5 +122,6 @@ if __name__ == "__main__":
   print(p.parse(arg4))
   print(p.parse(arg5))
   print(p.parse(arg6))
+  print(p.parse(arg7))
 
 

@@ -1,5 +1,12 @@
-from Tokans import Tokans, Tokan
+# imports
+
 import re
+#TODO: make a testing git branch where I can test all modules sepratly
+if __name__ == "__main__":
+  from TokanClass import Tokans, Tokan
+else:
+  from .TokanClass import Tokans, Tokan
+
 
 class Lexer:
   flags = ["-f"]
