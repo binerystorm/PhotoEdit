@@ -16,6 +16,7 @@ class FlagNode:
     ret = "Val: {} <".format(self.val)
     for i in self.args:
       ret += "{}".format(i)
+      ret += ", "
     ret += ">, "
     return ret
 
