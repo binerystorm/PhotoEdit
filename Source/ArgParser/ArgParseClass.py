@@ -21,10 +21,11 @@ class ArgParser:
     self.current_tok = None
     self.FLAGS = {
             "open": ("-f", "-o"),
-            "echo": ("-v",)}
+            "echo": ("-v", "-eq")}
     self.ARGS = {"-f": (str,),
                   "-o": (int, None),
-                  "-v": (str, None)}
+                  "-v": (str, None),
+                  "-eq": (str, float, int)}
 
   # Public methods
   def parse(self, arg):
@@ -107,21 +108,27 @@ class ArgParser:
 # end class
 
 
-if __name__ == "__main__":
+def test():
   arg = "open -f \"hallo\"" # test an expretion
   arg2 = "open -o" # test another valid expretion
   arg3 = "open -f \"hallo\" -o" # test an expretion with more than one flag
   arg4 = "open -o -f \"hallo\"" # test an expretion with more than one flag in another order
   arg5 = "open" # test expretion with no flags
-  arg6 = "echo -v"
+  arg6 = "echo -eq 1 2"
   arg7 = "bla" # test expretion with invalid funtion
   p = ArgParser()
-  print(p.parse(arg))
-  print(p.parse(arg2))
-  print(p.parse(arg3))
-  print(p.parse(arg4))
-  print(p.parse(arg5))
+  # print(p.parse(arg))
+  # print(p.parse(arg2))
+  # print(p.parse(arg3))
+  # print(p.parse(arg4))
+  # print(p.parse(arg5))
   print(p.parse(arg6))
-  print(p.parse(arg7))
+  # print(p.parse(arg7))
+
+def main():
+  pass
+
+if __name__ == "__main__":
+  test()
 
 

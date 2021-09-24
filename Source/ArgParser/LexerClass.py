@@ -48,10 +48,16 @@ class Lexer:
     else:
       raise Exception("pattern not recognised")
 
-if __name__ == "__main__":
+def main():
+  pass
+
+def test():
   l = Lexer()
 
   s = input("> ")
   ts = l.gen_tokan_stream(s)
   for i in ts:
     print(i)
+
+if __name__ == "__main__":
+  test()
