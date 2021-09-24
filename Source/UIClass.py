@@ -1,4 +1,3 @@
-from ArgParser.ArgParseClass import ArgParser
  
 class UI:
   def __init__(self):
@@ -6,11 +5,7 @@ class UI:
     input_stream = None
     output_stream = None
 
-    # Private vars:
-    _parser = ArgParser()#TODO: Add needed Arguements
-
-
-  def run(self)
+  def run(self):
     input_stream = input("> ")
 
     print(self.output_stream)
