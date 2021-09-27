@@ -6,6 +6,9 @@ class ArgNode:
   def __repr__(self):
     return "{}".format(self.val)
 
+  def __str__(self):
+    return str(self.val)
+
 
 class FlagNode:
   def __init__(self, tokan, arguments):
