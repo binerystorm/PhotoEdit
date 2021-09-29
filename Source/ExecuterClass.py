@@ -1,3 +1,5 @@
+# TODO: add type hinting
+
 if __name__ == "__main__":
   import ArgParser.ArgParseClass as a
   from UIClass import UI
@@ -5,6 +7,8 @@ else:
   from .ArgParser import ArgParseClass as a
   from .UIClass import UI
 
+# TODO: actualy implement foto editing 
+# TODO: make better I/O system(also for UIClass)
 # function procedures
 def echo_func(args):
   print(" ".join(args))
@@ -44,6 +48,7 @@ class Executer:
     self.parser = a.ArgParser()
     self.UI = UI()
 
+  # TODO: refactor (it is not a very good systema)
   def exe(self, cmd):
     root_ast = self.parser.parse(cmd)
     self.interp(root_ast)

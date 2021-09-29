@@ -1,6 +1,8 @@
 # imports
 
-#TODO: make a testing git branch where I can test all modules sepratly
+# TODO: add type hinting
+
+# TODO: make a testing git branch where I can test all modules sepratly
 if __name__ == "__main__":
   from TokanClass import Tokans, Tokan
   from LexerClass import Lexer
@@ -19,16 +21,22 @@ class ArgParser:
     self.lex = Lexer()
     self.tokan_stream = None
     self.current_tok = None
+    # TODO: add assets(data) folder in project, add self.FLAGS, self.ARGS to mensioned folder
     self.FLAGS = {
-            "open": ("-f", "-o"),
-            "echo": ("-v", "-eq")}
-    self.ARGS = {"-f": (str,),
-                  "-o": (int, None),
-                  "-v": (str, None),
-                  "-eq": (str, float, int)}
+        "open": ("-f", "-o"),
+        "echo": ("-v", "-eq")}
+    self.ARGS = {
+        # TODO: fix arguement system, each funtion must have its own flags
+        "-f": (str,),
+        "-o": (int, None),
+        "-v": (str, None),
+        "-eq": (str, float, int)}
 
+  # TODO: add error handeler
+  # TODO: refacter this code at some point (not essentail)
   # Public methods
   def parse(self, arg):
+    # TODO: make this accept genorator function
     self.arg = self.lex.gen_tokan_stream(arg)
     self.tokan_stream = iter(self.arg)
     root = self._parse_exp()
@@ -36,6 +44,7 @@ class ArgParser:
 
   # Private methods
   def _popt(self):
+  
     try:
       tok = next(self.tokan_stream)
     except StopIteration:
@@ -108,6 +117,7 @@ class ArgParser:
 # end class
 
 
+# TODO: fix test function (its a mess)
 def test():
   arg = "open -f \"hallo\"" # test an expretion
   arg2 = "open -o" # test another valid expretion

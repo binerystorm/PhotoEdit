@@ -1,3 +1,6 @@
+# TODO: add type hinting
+
+# TODO: add Node classes to assets(data) module
 
 class ArgNode:
   def __init__(self, tokan):
@@ -36,6 +39,7 @@ class CmdNode:
     ret += ">"
     return ret
 
+# TODO: Remove this crap (this doesn't need to be tested)
 if __name__ == "__main__":
   from LexerClass import Lexer
   l = Lexer()

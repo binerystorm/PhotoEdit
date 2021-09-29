@@ -1,4 +1,4 @@
- 
+# TODO: add type hinting
 class UI:
   def __init__(self):
     # Public vars

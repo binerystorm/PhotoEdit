@@ -1,7 +1,9 @@
+# TODO: add type hinting
+
 # imports
 
 import re
-#TODO: make a testing git branch where I can test all modules sepratly
+# TODO: make a testing git branch where I can test all modules sepratly
 if __name__ == "__main__":
   from TokanClass import Tokans, Tokan
 else:
@@ -9,6 +11,7 @@ else:
 
 
 class Lexer:
+  # TODO: remove these lists
   flags = ["-f"]
   funcs = ["open"]
   def __init__(self):
@@ -23,6 +26,7 @@ class Lexer:
     self.rstr = re.compile("\".+\"")
 
   # Public methods
+  # TODO: turn this function into generator function
   def gen_tokan_stream(self, cs):
     self.char_stream = cs
     self.tokan_stream = []
