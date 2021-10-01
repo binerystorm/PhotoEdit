@@ -2,34 +2,35 @@
 
 # imports
 
+import typing
 import re
 # TODO: make a testing git branch where I can test all modules sepratly
-if __name__ == "__main__":
-  from TokanClass import Tokans, Tokan
-else:
-  from .TokanClass import Tokans, Tokan
+# if __name__ == "__main__":
+#   pass
+#   # from TokanClass import Tokans, Tokan
+# else:
+from .TokanClass import Tokans, Tokan
 
 
 class Lexer:
   # TODO: remove these lists
   flags = ["-f"]
   funcs = ["open"]
-  def __init__(self):
+  def __init__(self) -> None:
     # Public vars
-    tokan_stream = None
-    char_stream = None
+    self.tokan_stream: list[Tokan] = []
+    self.char_stream: str = ""
 
     # Private vars
-    self.rflag = re.compile("-[a-z,A-Z]+")
-    self.rfunc = re.compile("[a-z,A-Z]+")
-    self.rnum = re.compile("\d+")
-    self.rstr = re.compile("\".+\"")
+    self.rflag: re.Pattern = re.compile("-[a-z,A-Z]+")
+    self.rfunc: re.Pattern = re.compile("[a-z,A-Z]+")
+    self.rnum: re.Pattern = re.compile("\d+")
+    self.rstr: re.Pattern = re.compile("\".+\"")
 
   # Public methods
   # TODO: turn this function into generator function
-  def gen_tokan_stream(self, cs):
+  def gen_tokan_stream(self, cs: str) -> list[Tokan]:
     self.char_stream = cs
-    self.tokan_stream = []
 
     # debugger
     # print(self.char_stream.split())
@@ -40,7 +41,7 @@ class Lexer:
     return self.tokan_stream
 
   # Private methods
-  def _gen_tokan(self, tok):
+  def _gen_tokan(self, tok: str) -> Tokan:
     if self.rflag.fullmatch(tok):
       return Tokan(Tokans.FLAG, tok)
     elif self.rfunc.fullmatch(tok):
@@ -52,14 +53,14 @@ class Lexer:
     else:
       raise Exception("pattern not recognised")
 
-def main():
+def main() -> None:
   pass
 
-def test():
-  l = Lexer()
+def test() -> None:
+  l: Lexer = Lexer()
 
-  s = input("> ")
-  ts = l.gen_tokan_stream(s)
+  s:str = input("> ")
+  ts:list[Tokan] = l.gen_tokan_stream(s)
   for i in ts:
     print(i)
 

@@ -8,12 +8,12 @@ class Tokans(enum.Enum):
   FUNC = 3
 
 class Tokan:
-  def __init__(self, t, v):
-    self.TYPE = t
-    self.VAL = v
+  def __init__(self, t: Tokans, v: str) -> None:
+    self.TYPE: Tokans = t
+    self.VAL: str = v
 
-  def __str__(self):
+  def __str__(self) -> str:
     return "Type: {}, Value: {}".format(self.TYPE, self.VAL)
 
-  def __repr__(self):
+  def __repr__(self) -> str:
     return "Type: {}, Value: {}".format(self.TYPE, self.VAL)

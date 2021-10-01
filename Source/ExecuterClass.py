@@ -1,12 +1,8 @@
+# imports
+import ArgParser.ArgParseClass as a
+from UIClass import UI
+
 # TODO: add type hinting
-
-if __name__ == "__main__":
-  import ArgParser.ArgParseClass as a
-  from UIClass import UI
-else:
-  from .ArgParser import ArgParseClass as a
-  from .UIClass import UI
-
 # TODO: actualy implement foto editing 
 # TODO: make better I/O system(also for UIClass)
 # function procedures
