@@ -18,3 +18,6 @@ class Tokan:
 
   def __repr__(self) -> str:
     return "Type: {}, Value: {}".format(self.TYPE, self.VAL)
+
+  def __eq__(self, other) -> bool:
+    return isinstance(other, Tokan) and self.VAL == other.VAL and self.TYPE == other.TYPE
