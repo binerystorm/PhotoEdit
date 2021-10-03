@@ -1,3 +1,4 @@
+from typing import Optional, Sequence
 from .TokanClass import Tokan, Tokans
 # TODO: add type hinting
 
@@ -5,7 +6,7 @@ from .TokanClass import Tokan, Tokans
 
 class ArgNode:
   def __init__(self, tokan: Tokan) -> None:
-    self.val: str = tokan.VAL
+    self.val: Optional[str] = tokan.VAL
 
   def __repr__(self) -> str:
     return "{}".format(self.val)
@@ -15,9 +16,9 @@ class ArgNode:
 
 
 class FlagNode:
-  def __init__(self, tokan: Tokan, arguments: list[ArgNode]):
-    self.val: str = tokan.VAL
-    self.args: list[ArgNode] = arguments
+  def __init__(self, tokan: Tokan, arguments: list[Optional[ArgNode]]):
+    self.val: Optional[str] = tokan.VAL
+    self.args: list[Optional[ArgNode]] = arguments
 
   def __repr__(self) -> str:
     ret: str = "Val: {} <".format(self.val)
@@ -29,9 +30,9 @@ class FlagNode:
 
 
 class CmdNode:
-  def __init__(self, tokan: Tokan, arguments: list[FlagNode]) -> None:
-    self.val: str = tokan.VAL
-    self.args: list[FlagNode] = arguments
+  def __init__(self, tokan: Tokan, arguments: list[Optional[FlagNode]]) -> None:
+    self.val: Optional[str] = tokan.VAL
+    self.args: list[Optional[FlagNode]] = arguments
 
   def __repr__(self) -> str:
     ret: str = "Val: {} <".format(self.val)
@@ -49,9 +50,9 @@ if __name__ == "__main__":
   arg: Tokan
   cmd, flag, arg = l.gen_tokan_stream("open -f \"/home\"") 
   argn: ArgNode = ArgNode(arg)
-  argl: list[ArgNode] = [argn]
+  argl: list[Optional[ArgNode]] = [argn]
   flagn: FlagNode = FlagNode(flag, argl)
-  flagl: list[FlagNode] = [flagn]
+  flagl: list[Optional[FlagNode]] = [flagn]
   cmdn: CmdNode = CmdNode(cmd, flagl)
   print(cmd)
 

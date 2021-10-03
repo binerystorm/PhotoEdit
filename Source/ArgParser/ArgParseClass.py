@@ -18,10 +18,10 @@ class ArgParser:
     self.tokan_stream: Iterator[Tokan]
     self.current_tok: Tokan
     # TODO: add assets(data) folder in project, add self.FLAGS, self.ARGS to mensioned folder
-    self.FLAGS: dict[str, tuple[str, ...]] = {
+    self.FLAGS: dict[Optional[str], tuple[str, ...]] = {
         "open": ("-f", "-o"),
         "echo": ("-v", "-eq")}
-    self.ARGS: dict[str, tuple[str, ...]] = {
+    self.ARGS: dict[Optional[str], tuple[Optional[type], ...]] = {
         # TODO: fix arguement system, each funtion must have its own flags
         "-f": (str,),
         "-o": (int, None),
@@ -67,7 +67,7 @@ class ArgParser:
   def _parse_func(self, func: Tokan) -> CmdNode:
     # var def
     flag: Tokan
-    flag_list: list[FlagNode] = []
+    flag_list: list[Optional[FlagNode]] = []
     self._popt()
 
     # logic
@@ -93,7 +93,7 @@ class ArgParser:
 
   def _parse_flag(self, flag: Tokan) -> FlagNode:
     # var def
-    arg_list: list[ArgNode] = []
+    arg_list: list[Optional[ArgNode]] = []
     self._popt()
 
     # logic

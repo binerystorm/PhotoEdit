@@ -1,3 +1,4 @@
+from typing import Optional
 import enum
 
 class Tokans(enum.Enum):
@@ -8,9 +9,9 @@ class Tokans(enum.Enum):
   FUNC = 3
 
 class Tokan:
-  def __init__(self, t: Tokans, v: str) -> None:
+  def __init__(self, t: Tokans, v: Optional[str]) -> None:
     self.TYPE: Tokans = t
-    self.VAL: str = v
+    self.VAL: Optional[str] = v 
 
   def __str__(self) -> str:
     return "Type: {}, Value: {}".format(self.TYPE, self.VAL)
