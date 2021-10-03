@@ -1,31 +1,27 @@
 # imports
+from typing import Union, Optional, Iterator
+from .TokanClass import Tokans, Tokan
+from .LexerClass import Lexer
+from .Nodes import FlagNode, ArgNode, CmdNode
 
 # TODO: add type hinting
 
 # TODO: make a testing git branch where I can test all modules sepratly
-if __name__ == "__main__":
-  from TokanClass import Tokans, Tokan
-  from LexerClass import Lexer
-  from Nodes import FlagNode, ArgNode, CmdNode
-else:
-  from .TokanClass import Tokans, Tokan
-  from .LexerClass import Lexer
-  from .Nodes import FlagNode, ArgNode, CmdNode
 
 class ArgParser:
-  def __init__(self):
+  def __init__(self) -> None:
     # Public vars
-    self.arg = None
+    self.arg: Optional[list[Tokan]] = None
 
     # Private vars
-    self.lex = Lexer()
-    self.tokan_stream = None
-    self.current_tok = None
+    self.lex: Lexer = Lexer()
+    self.tokan_stream: Iterator[Tokan]
+    self.current_tok: Tokan
     # TODO: add assets(data) folder in project, add self.FLAGS, self.ARGS to mensioned folder
-    self.FLAGS = {
+    self.FLAGS: dict[str, tuple[str, ...]] = {
         "open": ("-f", "-o"),
         "echo": ("-v", "-eq")}
-    self.ARGS = {
+    self.ARGS: dict[str, tuple[str, ...]] = {
         # TODO: fix arguement system, each funtion must have its own flags
         "-f": (str,),
         "-o": (int, None),
@@ -35,15 +31,16 @@ class ArgParser:
   # TODO: add error handeler
   # TODO: refacter this code at some point (not essentail)
   # Public methods
-  def parse(self, arg):
+  def parse(self, arg: str) -> CmdNode:
     # TODO: make this accept genorator function
     self.arg = self.lex.gen_tokan_stream(arg)
     self.tokan_stream = iter(self.arg)
-    root = self._parse_exp()
+    root: CmdNode = self._parse_exp()
     return root
 
   # Private methods
-  def _popt(self):
+  def _popt(self) -> None:
+    tok: Tokan
   
     try:
       tok = next(self.tokan_stream)
@@ -52,26 +49,25 @@ class ArgParser:
 
     self.current_tok = tok
 
-  def _parse_exp(self):
+  def _parse_exp(self) -> CmdNode:
+    func: Tokan
     # vars def
     self._popt()
     func = self.current_tok
 
     # logic
     if func.VAL not in self.FLAGS.keys():
-      try:
-        raise Exception("unknown function")
-      except Exception as e:
-        return "Exception: {}".format(e)
+      raise Exception("unknown function")
 
     if func.TYPE == Tokans.FUNC:
       return self._parse_func(func)
     else:
       raise Exception("Expected type FUNC, got type {}".format(func.TYPE))
     
-  def _parse_func(self, func):
+  def _parse_func(self, func: Tokan) -> CmdNode:
     # var def
-    flag_list = []
+    flag: Tokan
+    flag_list: list[FlagNode] = []
     self._popt()
 
     # logic
@@ -95,9 +91,9 @@ class ArgParser:
     else: 
       raise Exception("expected flag after functions")
 
-  def _parse_flag(self, flag):
+  def _parse_flag(self, flag: Tokan) -> FlagNode:
     # var def
-    arg_list = []
+    arg_list: list[ArgNode] = []
     self._popt()
 
     # logic
@@ -114,19 +110,17 @@ class ArgParser:
     else:
       return FlagNode(flag, arg_list)
 
-# end class
-
 
 # TODO: fix test function (its a mess)
-def test():
-  arg = "open -f \"hallo\"" # test an expretion
-  arg2 = "open -o" # test another valid expretion
-  arg3 = "open -f \"hallo\" -o" # test an expretion with more than one flag
-  arg4 = "open -o -f \"hallo\"" # test an expretion with more than one flag in another order
-  arg5 = "open" # test expretion with no flags
-  arg6 = "echo -eq 1 2"
-  arg7 = "bla" # test expretion with invalid funtion
-  p = ArgParser()
+def test() -> None:
+  arg: str = "open -f \"hallo\"" # test an expretion
+  arg2: str = "open -o" # test another valid expretion
+  arg3: str = "open -f \"hallo\" -o" # test an expretion with more than one flag
+  arg4: str = "open -o -f \"hallo\"" # test an expretion with more than one flag in another order
+  arg5: str = "open" # test expretion with no flags
+  arg6: str = "echo -eq 1 2"
+  arg7: str = "bla" # test expretion with invalid funtion
+  p: ArgParser = ArgParser()
   # print(p.parse(arg))
   # print(p.parse(arg2))
   # print(p.parse(arg3))
@@ -135,7 +129,7 @@ def test():
   print(p.parse(arg6))
   # print(p.parse(arg7))
 
-def main():
+def main() -> None:
   pass
 
 if __name__ == "__main__":
